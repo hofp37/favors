@@ -1,9 +1,13 @@
 import React from 'react';
+import Navigation from './Navigation'
 
 const DashboardPage = () => {
 
     return (
-        <h1>Dashboard Page</h1>
+        <React.Fragment>
+            <Navigation />
+            <h1>Dashboard</h1>
+        </React.Fragment>
     );
 };
 

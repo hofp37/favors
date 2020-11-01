@@ -12,6 +12,13 @@ router.get('/google/callback', passport.authenticate('google', { failureRedirect
     res.redirect(`${process.env.REACT_APP}/dashboard`)
 })
 
+// @desc Logout user
+// @route /auth/logout
+router.get('/logout', (req, res) => {
+    req.logout()
+    res.redirect(`${process.env.REACT_APP}/`)
+})
+
 // test to connect BE to React
 router.get('/express', (req, res) => {
     res.send({ express: 'Express B/E is connected to React' })
