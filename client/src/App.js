@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { faHandsHelping } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
+import LoginPage from './components/LoginPage';
+
+library.add(fab, faHandsHelping);
 
 const App = () => {
   const [hasErrors, setErrors] = useState(false);
@@ -19,25 +24,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="App">
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>
-        Edit <code>src/App.js</code> and save to reload.
-      </p>
-      <p>
-        { data }
-      </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
-    </header>
-  </div>
+    <LoginPage />
   );
 
 };
