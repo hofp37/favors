@@ -2,9 +2,7 @@ import React from 'react';
 import './LoginPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-
 const LoginPage = () => {
-
 
     return (
         <div className="container login-container">
@@ -16,7 +14,7 @@ const LoginPage = () => {
                     </div>
                     <div className="divider"></div>
                     <div className="section">
-                        <a href="http://localhost:5000/auth/google" className="btn red darken-1">
+                        <a href="/auth/google" className="btn red darken-1">
                             <FontAwesomeIcon icon={['fab', 'google']} /> Log In With Google
                         </a>
                     </div>
