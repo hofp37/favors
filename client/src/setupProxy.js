@@ -15,4 +15,11 @@ module.exports = app => {
             changeOrigin: true,
         })
     );
+    app.use(
+        '/api/auth',
+        createProxyMiddleware({
+            target: 'http://localhost:5000',
+            changeOrigin: true,
+        })
+    );
 };
