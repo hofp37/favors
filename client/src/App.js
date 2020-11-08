@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
@@ -6,30 +6,58 @@ import { faHandsHelping, faBars } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
 import LoginPage from './components/LoginPage';
 import DashboardPage from './components/DashboardPage';
+import ProtectedRoute from './components/ProtectedRoute';
+import Unauthorized from './components/Unauthorized';
+import PageDoesNotExist from './components/PageDoesNotExist';
 
 library.add(fab, faHandsHelping, faBars);
 
 const App = () => {
-  const [hasErrors, setErrors] = useState(false);
-  const [data, setData] = useState({});
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  async function fetchData() {
-    const res = await fetch('/express');
-    res
-      .json()
-      .then(res => setData(res.express))
-      .catch(err => setErrors(err));
+  const handleLogin = e => {
+    fetch('/api/auth', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      // We convert the React state to JSON and send it as the POST body
+      body: JSON.stringify({
+        email,
+        password
+      })
+    })
+      .then(res => {
+        if (res.status === 200) {
+          setIsAuthenticated(true);
+          return res.json();
+        } else {
+          setEmail("");
+          setPassword("");
+          setIsAuthenticated(false);
+          return res.json();
+        }
+      })
+      .then(res => console.log(res));
+
+    e.preventDefault();
   }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const handleLogout = e => {
+    e.preventDefault();
+    setIsAuthenticated(false);
+  }
 
   return (
     <Router>
       <Switch>
-        <Route path="/dashboard" component={DashboardPage} exact />
-        <Route path="/" component={LoginPage} exact />
+        <ProtectedRoute exact path="/dashboard" isAuthenticated={isAuthenticated} handleLogout={handleLogout} component={DashboardPage} />
+        <Route exact path="/" handleLogin={handleLogin} render={props => <LoginPage {...props} getEmail={email} setEmail={setEmail} getPassword={password} setPassword={setPassword} isAuthenticated={isAuthenticated.toString()} handleLogin={handleLogin} />} />
+        <Route exact path="/unauthorized" component={Unauthorized} />
+        <Route exact path="*" component={PageDoesNotExist} />
       </Switch>
     </Router>
   );

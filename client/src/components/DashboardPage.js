@@ -1,12 +1,13 @@
 import React from 'react';
 import Navigation from './Navigation'
 
-const DashboardPage = () => {
+const DashboardPage = (props) => {
 
     return (
         <React.Fragment>
-            <Navigation />
+            <Navigation handleLogout={props.handleLogout} />
             <h1>Dashboard</h1>
+            <button onClick={props.handleLogout}>Logout</button>
         </React.Fragment>
     );
 };

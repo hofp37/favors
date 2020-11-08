@@ -1,36 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './LoginPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 
 
 
 const LoginPage = (props) => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-
-    const submitForm = async (event) => {
-        fetch('/api/auth', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-            // We convert the React state to JSON and send it as the POST body
-            body: JSON.stringify({
-                email,
-                password
-            })
-        })
-        .then(res => res.json())
-        .then(res => {
-            console.log(res);
-            if (res.token) props.history.push('/dashboard');
-        });
-
-        event.preventDefault();
-    };
-
 
     return (
         <div className="container login-container">
@@ -42,15 +17,17 @@ const LoginPage = (props) => {
                     </div>
                     <div className="divider"></div>
                     <div className="section">
-                        <form onSubmit={submitForm}>
+                        <p>Logged in status: {props.isAuthenticated}</p>
+                        <p><Link to='/dashboard'>View Dashboard</Link></p>
+                        <form onSubmit={props.handleLogin}>
                             <div className="row">
                                 <div className="input-field col s12">
                                     <input
                                         id="email"
                                         type="email"
                                         className="validate"
-                                        value={email}
-                                        onChange={e => setEmail(e.target.value)} />
+                                        value={props.getEmail}
+                                        onChange={e => props.setEmail(e.target.value)} />
                                     <label htmlFor="email">Email</label>
                                 </div>
                             </div>
@@ -60,8 +37,8 @@ const LoginPage = (props) => {
                                         id="password"
                                         type="password"
                                         className="validate"
-                                        value={password}
-                                        onChange={e => setPassword(e.target.value)} />
+                                        value={props.getPassword}
+                                        onChange={e => props.setPassword(e.target.value)} />
                                     <label htmlFor="password">Password</label>
                                 </div>
                             </div>
