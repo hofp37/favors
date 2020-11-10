@@ -4,12 +4,12 @@ Favors is a single-page web application built with MERN stack. Concept of the ap
 
 ## Project Structure
 
-**/client** — F/E project files built in React
-**/config** — environment variables, DB configuration
-**/middleware** — layer used for private routes
-**/models** — Mongoose models
-**/routes** — REST API routes
-**server.js** — server configuration file
+- **/client** — F/E project files built in React
+- **/config** — environment variables, DB configuration
+- **/middleware** — layer used for private routes
+- **/models** — Mongoose models
+- **/routes** — REST API routes
+- **server.js** — server configuration file
 
 ## Installation & Running the App
 
