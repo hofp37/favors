@@ -37,7 +37,7 @@ const LoginPage = (props) => {
             .then(res => console.log(res));
 
         e.preventDefault();
-    }
+    };
 
     return (
         <div className="container login-container">
@@ -82,9 +82,9 @@ const LoginPage = (props) => {
                             </div>
                         </form>
                         <div>
-                            <a href="/auth/google" className="btn red darken-1">
+                            <a href="/api/auth/google" className="btn red darken-1">
                                 <FontAwesomeIcon icon={['fab', 'google']} /> Log In With Google
-                        </a>
+                            </a>
                         </div>
                     </div>
                 </div>

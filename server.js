@@ -40,8 +40,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
-app.use('/', require('./routes/index'));
-app.use('/auth', require('./routes/auth'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/favors', require('./routes/api/favors'));
